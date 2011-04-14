@@ -22,7 +22,7 @@ function varargout = main_GUI(varargin)
 
 % Edit the above text to modify the response to help main_GUI
 
-% Last Modified by GUIDE v2.5 14-Apr-2011 13:34:02
+% Last Modified by GUIDE v2.5 14-Apr-2011 15:08:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -73,40 +73,40 @@ function varargout = main_GUI_OutputFcn(hObject, eventdata, handles)
 varargout{1} = handles.output;
 
 
-% --- Executes on button press in pushbutton1_staffan.
-function pushbutton1_staffan_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton1_staffan (see GCBO)
+% --- Executes on button press in pushbutton_addFilter.
+function pushbutton_addFilter_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_addFilter (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 
-% --- Executes on button press in pushbutton2.
-function pushbutton2_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton2 (see GCBO)
+% --- Executes on button press in pushbutton_removeFilter.
+function pushbutton_removeFilter_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_removeFilter (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 
-% --- Executes on button press in pushbutton3.
-function pushbutton3_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton3 (see GCBO)
+% --- Executes on button press in pushbutton_moveUp.
+function pushbutton_moveUp_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_moveUp (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 
-% --- Executes on selection change in listbox1.
-function listbox1_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox1 (see GCBO)
+% --- Executes on selection change in listbox_avalibleFilters.
+function listbox_avalibleFilters_Callback(hObject, eventdata, handles)
+% hObject    handle to listbox_avalibleFilters (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox1 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox1
+% Hints: contents = cellstr(get(hObject,'String')) returns listbox_avalibleFilters contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from listbox_avalibleFilters
 
 
 % --- Executes during object creation, after setting all properties.
-function listbox1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to listbox1 (see GCBO)
+function listbox_avalibleFilters_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to listbox_avalibleFilters (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -118,25 +118,25 @@ end
 
 
 % --- Executes during object creation, after setting all properties.
-function pushbutton1_staffan_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to pushbutton1_staffan (see GCBO)
+function pushbutton_addFilter_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pushbutton_addFilter (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
 
-% --- Executes on selection change in listbox2.
-function listbox2_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox2 (see GCBO)
+% --- Executes on selection change in listbox_activeFilters.
+function listbox_activeFilters_Callback(hObject, eventdata, handles)
+% hObject    handle to listbox_activeFilters (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox2 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox2
+% Hints: contents = cellstr(get(hObject,'String')) returns listbox_activeFilters contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from listbox_activeFilters
 
 
 % --- Executes during object creation, after setting all properties.
-function listbox2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to listbox2 (see GCBO)
+function listbox_activeFilters_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to listbox_activeFilters (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -147,9 +147,9 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on key press with focus on pushbutton1_staffan and none of its controls.
-function pushbutton1_staffan_KeyPressFcn(hObject, eventdata, handles)
-% hObject    handle to pushbutton1_staffan (see GCBO)
+% --- Executes on key press with focus on pushbutton_addFilter and none of its controls.
+function pushbutton_addFilter_KeyPressFcn(hObject, eventdata, handles)
+% hObject    handle to pushbutton_addFilter (see GCBO)
 % eventdata  structure with the following fields (see UICONTROL)
 %	Key: name of the key that was pressed, in lower case
 %	Character: character interpretation of the key(s) that was pressed
@@ -157,8 +157,8 @@ function pushbutton1_staffan_KeyPressFcn(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 'kuk'
 
-% --- Executes on button press in pushbutton4.
-function pushbutton4_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton4 (see GCBO)
+% --- Executes on button press in pushbutton_moveDown.
+function pushbutton_moveDown_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_moveDown (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
