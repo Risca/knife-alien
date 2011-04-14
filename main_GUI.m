@@ -22,7 +22,7 @@ function varargout = main_GUI(varargin)
 
 % Edit the above text to modify the response to help main_GUI
 
-% Last Modified by GUIDE v2.5 14-Apr-2011 15:08:11
+% Last Modified by GUIDE v2.5 14-Apr-2011 15:32:42
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -57,6 +57,9 @@ handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
+
+update_listbox(handles)
+set(handles.listbox_availableFilters,'Value',[])
 
 % UIWAIT makes main_GUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -94,19 +97,19 @@ function pushbutton_moveUp_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 
-% --- Executes on selection change in listbox_avalibleFilters.
-function listbox_avalibleFilters_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox_avalibleFilters (see GCBO)
+% --- Executes on selection change in listbox_availableFilters.
+function listbox_availableFilters_Callback(hObject, eventdata, handles)
+% hObject    handle to listbox_availableFilters (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox_avalibleFilters contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox_avalibleFilters
+% Hints: contents = cellstr(get(hObject,'String')) returns listbox_availableFilters contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from listbox_availableFilters
 
 
 % --- Executes during object creation, after setting all properties.
-function listbox_avalibleFilters_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to listbox_avalibleFilters (see GCBO)
+function listbox_availableFilters_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to listbox_availableFilters (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -115,6 +118,7 @@ function listbox_avalibleFilters_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+'create function availableFilter'
 
 
 % --- Executes during object creation, after setting all properties.
@@ -122,6 +126,7 @@ function pushbutton_addFilter_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to pushbutton_addFilter (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
+
 
 
 % --- Executes on selection change in listbox_activeFilters.
@@ -146,6 +151,9 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
+function update_listbox(handles)
+vars = evalin('base','who');
+set(handles.listbox_availableFilters,'String',vars);
 
 % --- Executes on key press with focus on pushbutton_addFilter and none of its controls.
 function pushbutton_addFilter_KeyPressFcn(hObject, eventdata, handles)
@@ -155,7 +163,7 @@ function pushbutton_addFilter_KeyPressFcn(hObject, eventdata, handles)
 %	Character: character interpretation of the key(s) that was pressed
 %	Modifier: name(s) of the modifier key(s) (i.e., control, shift) pressed
 % handles    structure with handles and user data (see GUIDATA)
-'kuk'
+
 
 % --- Executes on button press in pushbutton_moveDown.
 function pushbutton_moveDown_Callback(hObject, eventdata, handles)
