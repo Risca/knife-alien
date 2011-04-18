@@ -22,7 +22,7 @@ function varargout = main_GUI(varargin)
 
 % Edit the above text to modify the response to help main_GUI
 
-% Last Modified by GUIDE v2.5 14-Apr-2011 15:32:42
+% Last Modified by GUIDE v2.5 18-Apr-2011 14:33:23
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -91,7 +91,9 @@ else
     contents = list_entries{index_selected};
 end
 set(handles.listbox_activeFilters,'String', contents);
-
+set(handles.listbox_activeFilters,'Value', length(contents));
+set(handles.pushbutton_removeFilter, 'Enable', 'on');
+updateMoveFilterButtons(handles);
 
 % --- Executes on button press in pushbutton_removeFilter.
 function pushbutton_removeFilter_Callback(hObject, eventdata, handles)
@@ -102,11 +104,16 @@ contents = cellstr(get(handles.listbox_activeFilters,'String'));
 
 index_selected = get(handles.listbox_activeFilters,'Value');
 if length(contents) ~= 1
-    contents(index_selected) = [];
+    if index_selected == length(contents)
+        set(handles.listbox_activeFilters, 'Value', index_selected - 1);
+    end
+    contents(index_selected) = [];  
 else
     contents(index_selected) = {''};
+    set(handles.pushbutton_removeFilter, 'Enable', 'off');
 end
 set(handles.listbox_activeFilters,'String', contents);
+updateMoveFilterButtons(handles);
 
 % --- Executes on button press in pushbutton_moveUp.
 function pushbutton_moveUp_Callback(hObject, eventdata, handles)
@@ -122,6 +129,7 @@ if index_selected ~= 1
     set(handles.listbox_activeFilters,'String', contents);
     set(handles.listbox_activeFilters,'Value', index_selected - 1)
 end
+updateMoveFilterButtons(handles);
 
 % --- Executes on selection change in listbox_availableFilters.
 function listbox_availableFilters_Callback(hObject, eventdata, handles)
@@ -132,7 +140,6 @@ function listbox_availableFilters_Callback(hObject, eventdata, handles)
 % Hints: contents = cellstr(get(hObject,'String')) returns listbox_availableFilters contents as cell array
         %contents{get(hObject,'Value')} %returns selected item from listbox_availableFilters
         %'Callback: available filters'
-        
 
 
 % --- Executes during object creation, after setting all properties.
@@ -146,7 +153,6 @@ function listbox_availableFilters_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-'CF: availableFilter'
 
 
 % --- Executes during object creation, after setting all properties.
@@ -179,11 +185,9 @@ function listbox_activeFilters_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-'CF: activeFilters'
 
 function update_listbox(handles)
 vars = evalin('base','who');
-'update listbox'
 set(handles.listbox_availableFilters,'String',vars);
 
 % --- Executes on key press with focus on pushbutton_addFilter and none of its controls.
@@ -209,4 +213,55 @@ if index_selected < length(contents)
     contents(index_selected) = temp;
     set(handles.listbox_activeFilters,'String', contents);
     set(handles.listbox_activeFilters,'Value', index_selected + 1)
+end
+updateMoveFilterButtons(handles);
+
+% --- Executes during object creation, after setting all properties.
+function pushbutton_removeFilter_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pushbutton_removeFilter (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+%Disable from start since there is no added filters
+set(hObject, 'Enable', 'off');
+
+
+% --- Executes during object creation, after setting all properties.
+function pushbutton_moveUp_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pushbutton_moveUp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+%Disable from start since there is no added filters
+set(hObject, 'Enable', 'off');
+
+
+% --- Executes during object creation, after setting all properties.
+function pushbutton_moveDown_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pushbutton_moveDown (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+%Disable from start since there is no added filters
+set(hObject, 'Enable', 'off');
+
+function updateMoveFilterButtons(handles)
+%This function controlls the logic of the Filter buttons
+
+contents = cellstr(get(handles.listbox_activeFilters,'String'));
+index_selected = get(handles.listbox_activeFilters,'Value');
+len = length(contents);
+
+%Check if it is impossible to move filter up
+if length(contents) == 1 || index_selected == 1
+    set(handles.pushbutton_moveUp, 'Enable', 'off');
+else
+    set(handles.pushbutton_moveUp, 'Enable', 'on');
+end
+
+%Check if it is impossible to move filter down
+if length(contents) == 1 || index_selected == len
+    set(handles.pushbutton_moveDown, 'Enable', 'off');
+else
+    set(handles.pushbutton_moveDown, 'Enable', 'on');
 end
