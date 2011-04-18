@@ -59,7 +59,8 @@ handles.output = hObject;
 guidata(hObject, handles);
 
 update_listbox(handles)
-set(handles.listbox_availableFilters,'Value',[])
+set(handles.listbox_availableFilters,'Value',1)
+set(handles.listbox_activeFilters,'Value',1)
 
 % UIWAIT makes main_GUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -81,6 +82,15 @@ function pushbutton_addFilter_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_addFilter (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+list_entries = get(handles.listbox_availableFilters,'String');
+index_selected = get(handles.listbox_availableFilters,'Value');
+contents = cellstr(get(handles.listbox_activeFilters,'String'));
+if contents{1}
+    contents = [contents; list_entries{index_selected}];
+else
+    contents = list_entries{index_selected};
+end
+set(handles.listbox_activeFilters,'String', contents);
 
 
 % --- Executes on button press in pushbutton_removeFilter.
@@ -88,14 +98,30 @@ function pushbutton_removeFilter_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_removeFilter (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+contents = cellstr(get(handles.listbox_activeFilters,'String'));
 
+index_selected = get(handles.listbox_activeFilters,'Value');
+if length(contents) ~= 1
+    contents(index_selected) = [];
+else
+    contents(index_selected) = {''};
+end
+set(handles.listbox_activeFilters,'String', contents);
 
 % --- Executes on button press in pushbutton_moveUp.
 function pushbutton_moveUp_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_moveUp (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+contents = cellstr(get(handles.listbox_activeFilters,'String'));
+index_selected = get(handles.listbox_activeFilters,'Value');
+if index_selected ~= 1
+    temp = contents(index_selected - 1);
+    contents(index_selected - 1) = contents(index_selected);
+    contents(index_selected) = temp;
+    set(handles.listbox_activeFilters,'String', contents);
+    set(handles.listbox_activeFilters,'Value', index_selected - 1)
+end
 
 % --- Executes on selection change in listbox_availableFilters.
 function listbox_availableFilters_Callback(hObject, eventdata, handles)
@@ -104,7 +130,9 @@ function listbox_availableFilters_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns listbox_availableFilters contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox_availableFilters
+        %contents{get(hObject,'Value')} %returns selected item from listbox_availableFilters
+        %'Callback: available filters'
+        
 
 
 % --- Executes during object creation, after setting all properties.
@@ -118,7 +146,7 @@ function listbox_availableFilters_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-'create function availableFilter'
+'CF: availableFilter'
 
 
 % --- Executes during object creation, after setting all properties.
@@ -126,6 +154,7 @@ function pushbutton_addFilter_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to pushbutton_addFilter (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
+
 
 
 
@@ -150,9 +179,11 @@ function listbox_activeFilters_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+'CF: activeFilters'
 
 function update_listbox(handles)
 vars = evalin('base','who');
+'update listbox'
 set(handles.listbox_availableFilters,'String',vars);
 
 % --- Executes on key press with focus on pushbutton_addFilter and none of its controls.
@@ -170,3 +201,12 @@ function pushbutton_moveDown_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_moveDown (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+contents = cellstr(get(handles.listbox_activeFilters,'String'));
+index_selected = get(handles.listbox_activeFilters,'Value');
+if index_selected < length(contents)
+    temp = contents(index_selected + 1);
+    contents(index_selected + 1) = contents(index_selected);
+    contents(index_selected) = temp;
+    set(handles.listbox_activeFilters,'String', contents);
+    set(handles.listbox_activeFilters,'Value', index_selected + 1)
+end
