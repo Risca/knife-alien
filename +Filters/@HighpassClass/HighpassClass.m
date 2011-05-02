@@ -1,2 +1,2 @@
-classdef () HighpassClass < FilterClass
+classdef () HighpassClass < FilterClass & handle
 end

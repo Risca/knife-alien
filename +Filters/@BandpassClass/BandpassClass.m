@@ -1,2 +1,2 @@
-classdef () BandpassClass < FilterClass
+classdef () BandpassClass < FilterClass & handle
 end
