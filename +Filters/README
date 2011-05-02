@@ -1,0 +1,5 @@
+This is a package folder for all filters.
+Referencing package members has to be done
+with a dot.
+E.g:
+Filters.lowpass();
