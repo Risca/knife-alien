@@ -1,2 +1,2 @@
-classdef () FilterClass < handle
+classdef (Hidden=true) FilterClass < handle
 end
