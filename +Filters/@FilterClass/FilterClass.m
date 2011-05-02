@@ -1,8 +1,8 @@
 classdef (Hidden=true) FilterClass < handle
-    properties
+    properties (Abstract=true)
         Data
     end
-    methods (Abstract)
+    methods (Abstract=true)
         filteredData = filter(obj,data)
     end
     events
