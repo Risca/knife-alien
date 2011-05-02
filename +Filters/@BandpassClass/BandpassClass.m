@@ -1,0 +1,2 @@
+classdef () BandpassClass < FilterClass
+end

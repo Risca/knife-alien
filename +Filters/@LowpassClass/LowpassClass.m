@@ -1,0 +1,2 @@
+classdef () LowpassClass < FilterClass
+end

@@ -1,5 +1,7 @@
 This is a package folder for all filters.
-Referencing package members has to be done
-with a dot.
+Referencing package members has to be done with a dot.
 E.g:
 Filters.lowpass();
+
+For more information see:
+http://www.mathworks.com/help/techdoc/matlab_oop/brfynt_-1.html

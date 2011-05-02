@@ -1,0 +1,2 @@
+classdef () HighpassClass < FilterClass
+end

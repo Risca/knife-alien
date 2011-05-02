@@ -1,0 +1,2 @@
+classdef () FilterClass < handle
+end
