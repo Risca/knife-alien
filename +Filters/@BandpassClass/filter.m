@@ -1,6 +1,7 @@
 function filteredData = filter (obj, data)
     % Make filtering
-    Data = data.*2;
+    obj.Data = data.*2;
+    filteredData = obj.Data;
     % Notify world
     notify(obj,'FilteringComplete');
 end

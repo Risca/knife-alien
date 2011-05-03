@@ -1,5 +1,5 @@
 classdef (Hidden=true) FilterClass < handle
-    properties (Abstract=true)
+    properties (SetAccess = protected, GetAccess = protected)
         Data
     end
     methods (Abstract=true)
