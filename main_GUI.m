@@ -101,7 +101,6 @@ function pushbutton_removeFilter_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 contents = cellstr(get(handles.listbox_activeFilters,'String'));
-
 index_selected = get(handles.listbox_activeFilters,'Value');
 if length(contents) ~= 1
     if index_selected == length(contents)
@@ -169,6 +168,7 @@ function listbox_activeFilters_Callback(hObject, eventdata, handles)
 % hObject    handle to listbox_activeFilters (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+updateMoveFilterButtons(handles);
 
 % Hints: contents = cellstr(get(hObject,'String')) returns listbox_activeFilters contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from listbox_activeFilters
@@ -207,12 +207,12 @@ function pushbutton_moveDown_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 contents = cellstr(get(handles.listbox_activeFilters,'String'));
 index_selected = get(handles.listbox_activeFilters,'Value');
-if index_selected < length(contents)
+if index_selected < length(contents);
     temp = contents(index_selected + 1);
     contents(index_selected + 1) = contents(index_selected);
     contents(index_selected) = temp;
     set(handles.listbox_activeFilters,'String', contents);
-    set(handles.listbox_activeFilters,'Value', index_selected + 1)
+    set(handles.listbox_activeFilters,'Value', index_selected + 1);
 end
 updateMoveFilterButtons(handles);
 
@@ -265,3 +265,4 @@ if length(contents) == 1 || index_selected == len
 else
     set(handles.pushbutton_moveDown, 'Enable', 'on');
 end
+%index_selected = get(handles.listbox_activeFilters,'Value')
