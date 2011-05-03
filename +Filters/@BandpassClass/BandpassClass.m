@@ -1,4 +1,4 @@
-classdef () BandpassClass < Filters.FilterClass & handle
+classdef BandpassClass < Filters.FilterClass & handle
     methods
         function obj = BandpassClass()
         end
