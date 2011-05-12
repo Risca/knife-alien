@@ -22,7 +22,7 @@ function varargout = main_GUI(varargin)
 
 % Edit the above text to modify the response to help main_GUI
 
-% Last Modified by GUIDE v2.5 18-Apr-2011 14:33:23
+% Last Modified by GUIDE v2.5 03-May-2011 16:47:53
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -266,3 +266,22 @@ else
     set(handles.pushbutton_moveDown, 'Enable', 'on');
 end
 %index_selected = get(handles.listbox_activeFilters,'Value')
+
+function updateGraphInput(hObject)
+limits = get(hObject, 'ALim')
+%contents = cellstr(get(handles.graph_input,'String'));
+    %contents2 = cellstr(get(handles.graph_output, 'String'))
+    %'Yes it will print'
+
+
+% --- Executes during object creation, after setting all properties.
+function graph_input_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to graph_input (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: place code in OpeningFcn to populate graph_input
+updateGraphInput(hObject);
+
+function graph_input_OpeningFcn(hObject, eventdata, handles)
+updateGraphInput(handles)%handles);
