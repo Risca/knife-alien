@@ -108,6 +108,7 @@ varargout{1} = handles.output;
 % Hints: contents = cellstr(get(hObject,'String')) returns listbox_activeFilters contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from listbox_activeFilters
 
+%Stop the audio recorder when closing main_GUI
 function closeFcn(hObject, eventData)
 handles = guidata(hObject);
 stop(handles.audioObj);
