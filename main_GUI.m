@@ -63,29 +63,26 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
-% Create structure for fft plot
-fftData.fs = 22050;
-fftData.dT = 0.05;
-fftData.Nfft = floor(fftData.fs*fftData.dT);
-f = (0:fftData.Nfft/2-1)*fftData.fs/fftData.Nfft;
+% Declare some stuff for sampling and the fft
+fs = 22050;
+dT = 0.05;
+Nfft = floor(fs*dT);
+f = (0:Nfft/2-1)*fs/Nfft;
 % Setup stem plot for unfiltered fft plot
-fftData.stemHandle = stem(handles.graph_input,f,zeros(1,length(f)));
+stemHandle = stem(handles.graph_input,f,zeros(1,length(f)));
 set(handles.graph_input,'ALimMode','manual');
 set(handles.graph_input,'YLim',[0 0.5]);
 set(handles.graph_input,'XLim',[0 f(end)]);
-% Setup audio data
-handles.audioObj = audiorecorder(fftData.fs,16,1);
-set(handles.audioObj, ...
-    'TimerFcn',@audioTimerFcn, ...
-    'TimerPeriod', fftData.dT, ...
-    'UserData', fftData);
 
-handles.fftData = fftData;
-% Save handles data!
-guidata(hObject, handles);
-
+% Setup audio object
+handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
+set(handles.audioObj,'TimerPeriod', dT);
+addlistener(handles.audioObj,'NewAudioData',@audioTimerFcn);
 % Start recording
 record(handles.audioObj);
+
+% Update handles structure
+guidata(hObject, handles);
 
 update_listbox(handles)
 set(handles.listbox_availableFilters,'Value',1)

@@ -1,18 +1,24 @@
 classdef CustomAudioRecorder < audiorecorder & handle
     properties (SetAccess = protected)
-        Data
         fftData
+        stemHandle
     end
     methods
-        function obj = CustomAudioRecorder(Fs,nBits,nChannels,Nfft)
+        function obj = CustomAudioRecorder(Fs,nBits,nChannels,Nfft,stemHandle)
             obj = obj@audiorecorder(Fs,nBits,nChannels);
             obj.fftData.fs = Fs;
             obj.fftData.Nfft = Nfft;
-%             set(obj, ...
-%                 'TimerFcn',@audioTimerFcn, ...
-%                 'TimerPeriod', 0.1, ...
-%                 'UserData', fftData);
-            obj.TimerFcn = @timerFcn;
+            obj.stemHandle = stemHandle;
+            obj.TimerFcn = @obj.customTimerFcn;
+        end
+        function customTimerFcn(obj,src,eventData)
+            notify(src,'NewAudioData');
+        end
+    end
+    methods (Static,Hidden)
+        % Overide audiorecorder's private, hidden validateFcn.
+        % Had to make this function static, don't really know why.
+        function validateFcn(fcn)
         end
     end
     events
