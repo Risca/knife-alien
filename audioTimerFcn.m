@@ -7,15 +7,17 @@ Y = fft(audioData,Nfft);
 
 %Make dynamic x-axis
 %Get the frequency axis values to be able to truncate
-f = get(obj.stemHandle, 'UserData');
+userdata = get(obj.stemHandle, 'UserData');
+f = userdata.f;
+handle_graph_input = userdata.graph_input;
 % f = get(obj.g);
 %Find the last intresting index
-maxindex = find(Y(1:Nfft/2) > 0.15, 1, 'last');
+maxindex = find(Y(1:Nfft/2) > 0.4, 1, 'last');
 %get(obj.stemHandle)
 xlim = get(obj.stemHandle, 'XData');
 newendindex = 1;
 if(f(maxindex) < xlim(end))
-    newendindex = length(xlim) - floor(0.05*(length(xlim) - maxindex));
+    newendindex = length(xlim) - floor(0.02*(length(xlim) - maxindex));
 else
     newendindex = floor(maxindex/(1 - 0.05));
     if(newendindex > length(f))
@@ -23,6 +25,7 @@ else
     end
 end
 set(obj.stemHandle,'XData', f(1:newendindex));
+set(handle_graph_input, 'XLim', [0 f(newendindex)]);
 Y = Y(1:newendindex);
 Y = abs(Y)*2/Nfft;
 set(obj.stemHandle,'YData',Y);

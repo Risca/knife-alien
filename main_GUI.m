@@ -78,7 +78,9 @@ set(handles.graph_input,'XLim',[0 f(end)]);
 %addprop(handles.graph_input, 'fmax');
 %set(handles.graph_input,'fmax',3);
 %Instead of using a dynamic property, the property UserData is used.
-set(stemHandle,'UserData',f);
+userdata.f = f;
+userdata.graph_input = handles.graph_input;
+set(stemHandle,'UserData',userdata);
 
 % Setup audio object
 handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
