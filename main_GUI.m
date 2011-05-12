@@ -25,10 +25,10 @@ function varargout = main_GUI(varargin)
 % Last Modified by GUIDE v2.5 03-May-2011 16:47:53
 
 % Begin initialization code - DO NOT EDIT
-addpath('graph_input', 'graph_output');
+addpath(genpath('graph'));
 addpath('helpers');
-addpath('listbox_activeFilters', 'listbox_availableFilters');
-addpath('pushbutton_addFilter', 'pushbutton_moveDown', 'pushbutton_moveUp', 'pushbutton_removeFilter');
+addpath(genpath('listbox'));
+addpath(genpath('pushbutton'));
 
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
