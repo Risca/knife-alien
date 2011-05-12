@@ -12,7 +12,9 @@ f = userdata.f;
 handle_graph_input = userdata.graph_input;
 % f = get(obj.g);
 %Find the last intresting index
-maxindex = find(Y(1:Nfft/2) > 0.4, 1, 'last');
+Y = Y(1:Nfft/2);
+maxindex = find(Y > 0.3, 1, 'last');
+Y = abs(Y)*2/Nfft;
 %get(obj.stemHandle)
 xlim = get(obj.stemHandle, 'XData');
 newendindex = 1;
@@ -27,6 +29,5 @@ end
 set(obj.stemHandle,'XData', f(1:newendindex));
 set(handle_graph_input, 'XLim', [0 f(newendindex)]);
 Y = Y(1:newendindex);
-Y = abs(Y)*2/Nfft;
 set(obj.stemHandle,'YData',Y);
 drawnow;
