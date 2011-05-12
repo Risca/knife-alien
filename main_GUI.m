@@ -85,6 +85,8 @@ update_listbox(handles)
 set(handles.listbox_availableFilters,'Value',1)
 set(handles.listbox_activeFilters,'Value',1)
 
+
+set(handles.figure1,'CloseRequestFcn',@closeFcn);
 % UIWAIT makes main_GUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
@@ -321,3 +323,8 @@ Y = Y(1:Nfft/2);
 Y = abs(Y)*2/Nfft;
 set(data.stemHandle,'YData',Y);
 drawnow;
+
+function closeFcn(hObject, eventData)
+handles = guidata(hObject);
+stop(handles.audioObj);
+delete(gcf)
