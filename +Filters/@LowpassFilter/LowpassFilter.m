@@ -10,7 +10,10 @@ classdef LowpassFilter < Filters.FilterClass & handle
         function setCutoffFreq(obj, freq)
             obj.CutOffFreq = freq;
         end
-        
-        
     end
+%     methods (Static)
+%         function filterEvent(src,eventData)
+%             foo = 42
+%         end
+%     end
 end
