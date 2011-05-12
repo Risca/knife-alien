@@ -25,10 +25,10 @@ function varargout = main_GUI(varargin)
 % Last Modified by GUIDE v2.5 03-May-2011 16:47:53
 
 % Begin initialization code - DO NOT EDIT
-addpath('graph_input', 'graph_output');
+addpath(genpath('graph'));
 addpath('helpers');
-addpath('listbox_activeFilters', 'listbox_availableFilters');
-addpath('pushbutton_addFilter', 'pushbutton_moveDown', 'pushbutton_moveUp', 'pushbutton_removeFilter');
+addpath(genpath('listbox'));
+addpath(genpath('pushbutton'));
 
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
@@ -64,8 +64,9 @@ handles.output = hObject;
 guidata(hObject, handles);
 
 % Create structure for fft plot
-fftData.fs = 44100;
-fftData.Nfft = 256;
+fftData.fs = 22050;
+fftData.dT = 0.05;
+fftData.Nfft = floor(fftData.fs*fftData.dT);
 f = (0:fftData.Nfft/2-1)*fftData.fs/fftData.Nfft;
 % Setup stem plot for unfiltered fft plot
 fftData.stemHandle = stem(handles.graph_input,f,zeros(1,length(f)));
@@ -76,7 +77,7 @@ set(handles.graph_input,'XLim',[0 f(end)]);
 handles.audioObj = audiorecorder(fftData.fs,16,1);
 set(handles.audioObj, ...
     'TimerFcn',@audioTimerFcn, ...
-    'TimerPeriod', 0.1, ...
+    'TimerPeriod', fftData.dT, ...
     'UserData', fftData);
 
 handles.fftData = fftData;
@@ -94,9 +95,8 @@ set(handles.figure1,'CloseRequestFcn',@closeFcn);
 % UIWAIT makes main_GUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
-
 % --- Outputs from this function are returned to the command line.
-function varargout = main_GUI_OutputFcn(hObject, eventdata, handles) 
+function varargout = main_GUI_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -107,9 +107,3 @@ varargout{1} = handles.output;
 
 % Hints: contents = cellstr(get(hObject,'String')) returns listbox_activeFilters contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from listbox_activeFilters
-
-%Stop the audio recorder when closing main_GUI
-function closeFcn(hObject, eventData)
-handles = guidata(hObject);
-stop(handles.audioObj);
-delete(gcf)
