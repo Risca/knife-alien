@@ -28,6 +28,7 @@ else
 end
 set(obj.stemHandle,'XData', f(1:newendindex));
 set(handle_graph_input, 'XLim', [0 f(newendindex)]);
+set(handle_graph_input, 'YLim', [0 ceil(max(Y))]);
 Y = Y(1:newendindex);
 set(obj.stemHandle,'YData',Y);
 drawnow;
