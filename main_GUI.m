@@ -63,10 +63,10 @@ fftData.fs = 44100;
 fftData.Nfft = 256;
 f = (0:fftData.Nfft/2-1)*fftData.fs/fftData.Nfft;
 % Setup stem plot for unfiltered fft plot
-fftData.stemHandle = stem(handles.input_graph,f,zeros(1,length(f)));
-set(handles.input_graph,'ALimMode','manual');
-set(handles.input_graph,'YLim',[0 0.5]);
-set(handles.input_graph,'XLim',[0 f(end)]);
+fftData.stemHandle = stem(handles.graph_input,f,zeros(1,length(f)));
+set(handles.graph_input,'ALimMode','manual');
+set(handles.graph_input,'YLim',[0 0.5]);
+set(handles.graph_input,'XLim',[0 f(end)]);
 % Setup audio data
 handles.audioObj = audiorecorder(fftData.fs,16,1);
 set(handles.audioObj, ...
