@@ -25,6 +25,7 @@ function varargout = main_GUI(varargin)
 % Last Modified by GUIDE v2.5 03-May-2011 16:47:53
 
 % Begin initialization code - DO NOT EDIT
+addpath('graph_input');
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
@@ -84,7 +85,6 @@ record(handles.audioObj);
 update_listbox(handles)
 set(handles.listbox_availableFilters,'Value',1)
 set(handles.listbox_activeFilters,'Value',1)
-
 
 set(handles.figure1,'CloseRequestFcn',@closeFcn);
 % UIWAIT makes main_GUI wait for user response (see UIRESUME)
@@ -292,24 +292,6 @@ else
 end
 %index_selected = get(handles.listbox_activeFilters,'Value')
 
-function updateGraphInput(hObject)
-limits = get(hObject, 'ALim')
-%contents = cellstr(get(handles.graph_input,'String'));
-    %contents2 = cellstr(get(handles.graph_output, 'String'))
-    %'Yes it will print'
-
-
-% --- Executes during object creation, after setting all properties.
-function graph_input_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to graph_input (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: place code in OpeningFcn to populate graph_input
-updateGraphInput(hObject);
-
-function graph_input_OpeningFcn(hObject, eventdata, handles)
-updateGraphInput(handles);
 
 function closeFcn(hObject, eventData)
 handles = guidata(hObject);
