@@ -81,7 +81,7 @@ addlistener(handles.audioObj,'NewAudioData',@audioTimerFcn);
 % Start recording
 record(handles.audioObj);
 
-% Save audioObj
+% Update handles structure
 guidata(hObject, handles);
 
 update_listbox(handles)
