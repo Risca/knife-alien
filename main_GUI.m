@@ -58,6 +58,29 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
+% Create structure for fft plot
+fftData.fs = 44100;
+fftData.Nfft = 256;
+f = (0:fftData.Nfft/2-1)*fftData.fs/fftData.Nfft;
+% Setup stem plot for unfiltered fft plot
+fftData.stemHandle = stem(handles.input_graph,f,zeros(1,length(f)));
+set(handles.input_graph,'ALimMode','manual');
+set(handles.input_graph,'YLim',[0 0.5]);
+set(handles.input_graph,'XLim',[0 f(end)]);
+% Setup audio data
+handles.audioObj = audiorecorder(fftData.fs,16,1);
+set(handles.audioObj, ...
+    'TimerFcn',@audioTimerFcn, ...
+    'TimerPeriod', 0.1, ...
+    'UserData', fftData);
+
+handles.fftData = fftData;
+% Save handles data!
+guidata(hObject, handles);
+
+% Start recording
+record(handles.audioObj);
+
 update_listbox(handles)
 set(handles.listbox_availableFilters,'Value',1)
 set(handles.listbox_activeFilters,'Value',1)
@@ -267,6 +290,7 @@ else
 end
 %index_selected = get(handles.listbox_activeFilters,'Value')
 
+<<<<<<< HEAD
 function updateGraphInput(hObject)
 limits = get(hObject, 'ALim')
 %contents = cellstr(get(handles.graph_input,'String'));
@@ -285,3 +309,17 @@ updateGraphInput(hObject);
 
 function graph_input_OpeningFcn(hObject, eventdata, handles)
 updateGraphInput(handles)%handles);
+=======
+function audioTimerFcn(obj,eventData)
+obj.TotalSamples;
+data = obj.UserData;
+Nfft = data.Nfft;
+audioData = getaudiodata(obj);
+% Only process last Nfft samples
+audioData = audioData(end-Nfft:end);
+Y = fft(audioData,Nfft);
+Y = Y(1:Nfft/2);
+Y = abs(Y)*2/Nfft;
+set(data.stemHandle,'YData',Y);
+drawnow;
+>>>>>>> 76b98057dfffc59253509d283c3de3d27800d90a
