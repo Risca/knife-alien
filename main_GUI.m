@@ -292,8 +292,3 @@ else
 end
 %index_selected = get(handles.listbox_activeFilters,'Value')
 
-
-function closeFcn(hObject, eventData)
-handles = guidata(hObject);
-stop(handles.audioObj);
-delete(gcf)
