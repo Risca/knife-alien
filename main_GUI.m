@@ -290,7 +290,6 @@ else
 end
 %index_selected = get(handles.listbox_activeFilters,'Value')
 
-<<<<<<< HEAD
 function updateGraphInput(hObject)
 limits = get(hObject, 'ALim')
 %contents = cellstr(get(handles.graph_input,'String'));
@@ -309,7 +308,7 @@ updateGraphInput(hObject);
 
 function graph_input_OpeningFcn(hObject, eventdata, handles)
 updateGraphInput(handles)%handles);
-=======
+
 function audioTimerFcn(obj,eventData)
 obj.TotalSamples;
 data = obj.UserData;
@@ -322,4 +321,3 @@ Y = Y(1:Nfft/2);
 Y = abs(Y)*2/Nfft;
 set(data.stemHandle,'YData',Y);
 drawnow;
->>>>>>> 76b98057dfffc59253509d283c3de3d27800d90a
