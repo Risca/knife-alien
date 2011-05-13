@@ -16,11 +16,11 @@ classdef CustomAudioRecorder < audiorecorder & handle
             Nfft = obj.fftData.Nfft;
             audioData = getaudiodata(src);
             % Only process last Nfft samples
-            obj.Data = audioData(end-Nfft:end);
-            obj.Data = fft(audioData,Nfft);
-            obj.Data = obj.Data(1:Nfft/2);
+            audioData = audioData(end-Nfft:end);
+            audioData = fft(audioData,Nfft);
+            audioData = audioData(1:Nfft/2);
             % Adjust magnitude
-            obj.Data = abs(obj.Data)*2/Nfft;
+            obj.Data = abs(audioData)*2/Nfft;
             notify(obj,'NewAudioData');
         end
     end
