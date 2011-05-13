@@ -15,5 +15,5 @@ function filteredData = filter (obj, data)
     
     % Filter data:
     obj.Data = data .* filteringMask;
-    filteredData = data;
+    filteredData = obj.Data;
 end
