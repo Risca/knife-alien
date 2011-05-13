@@ -1,10 +1,11 @@
-classdef LowpassFilter < Filters.FilterClass & handle
+classdef LowpassFilter < Filters.FilterClass & handle & hgsetget
     properties (SetAccess = protected)
         CutOffFreq
     end
     
     methods
-        function obj = LowpassFilter()
+        function obj = LowpassFilter(obj)
+            obj.Name = 'Lowpass';
         end
         
         function setCutoffFreq(obj, freq)

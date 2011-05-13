@@ -1,6 +1,7 @@
-classdef HighpassFilter < Filters.FilterClass & handle
+classdef HighpassFilter < Filters.FilterClass & handle & hgsetget
     methods
-        function obj = HighpassFilter()
+        function obj = HighpassFilter(obj)
+            obj.Name = 'Highpass';
         end
     end
 end
