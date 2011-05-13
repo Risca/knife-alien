@@ -74,15 +74,6 @@ set(handles.graph_input,'ALimMode','manual');
 set(handles.graph_input,'YLim',[0 0.5]);
 set(handles.graph_input,'XLim',[0 f(end)]);
 
-% I get a error using addprop when I send a handle as an input. /D
-%addprop(handles.graph_input, 'fmax');
-%set(handles.graph_input,'fmax',3);
-% Instead of using a dynamic property, the property UserData is used.
-% Removed by Risca, resolved by using fs and Nfft instead.
-%userdata.f = f;
-%userdata.graph_input = handles.graph_input;
-%set(stemHandle,'UserData',userdata);
-
 % Setup audio object
 handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
 set(handles.audioObj,'TimerPeriod', dT);
