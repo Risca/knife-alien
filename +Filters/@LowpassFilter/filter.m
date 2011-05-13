@@ -20,8 +20,8 @@ function filteredData = filter (obj, data)
     filteringMask = [ ones(1,n) zeros(1,(length(data)-n)) ];
     
     % Filter data:
-    filteredData = data .* filteringMask;
-    
+   data = data .* filteringMask;
+   filteredData = data;
     
 
 
