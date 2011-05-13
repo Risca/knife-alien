@@ -1,32 +1,29 @@
 function audioTimerFcn(obj,eventData)
+fs = obj.fftData.fs;
 Nfft = obj.fftData.Nfft;
-audioData = getaudiodata(obj);
-% Only process last Nfft samples
-audioData = audioData(end-Nfft:end);
-Y = audioData;
-
+Y = obj.Data;
 %Make dynamic x-axis
-%Get the frequency axis values to be able to truncate
-userdata = get(obj.stemHandle, 'UserData');
-f = userdata.f;
-handle_graph_input = userdata.graph_input;
+handle_graph_input = get(obj.stemHandle, 'Parent');
+xlim = get(handle_graph_input, 'XLim');
 %Find the last intresting index
-%Y = Y(1:Nfft/2);
-maxindex = find(Y > 0.3, 1, 'last');
-%Y = abs(Y)*2/Nfft;
-xlim = get(obj.stemHandle, 'XData');
-newendindex = 1;
-if(f(maxindex) < xlim(end))
-    newendindex = length(xlim) - floor(0.02*(length(xlim) - maxindex));
+maxindex = find(Y > 0.2, 1, 'last');
+if isempty(maxindex)
+    maxindex = xlim(end)*(Nfft/fs)/2;
+end
+
+if maxindex < xlim(end)*(Nfft/fs)
+    newendindex = floor(xlim(end)*Nfft/fs - floor(0.02*(xlim(end)*Nfft/fs - maxindex)));
 else
     newendindex = floor(maxindex/(1 - 0.05));
-    if(newendindex > length(f))
-        newendindex = length(f);
-    end
+%     if newendindex > xlim(end)*(Nfft/fs)
+%         newendindex = xlim(end)*(Nfft/fs);
+%     end
 end
-set(obj.stemHandle,'XData', f(1:newendindex));
-set(handle_graph_input, 'XLim', [0 f(newendindex)]);
+% Denna rad fuckar upp stemplot
+%set(obj.stemHandle,'XData', 0:newendindex*(fs/Nfft));
+set(handle_graph_input, 'XLim', [0 newendindex*(fs/Nfft)]);
 set(handle_graph_input, 'YLim', [0 ceil(max(Y))]);
-Y = Y(1:newendindex);
+% Denna med
+%Y = Y(1:newendindex);
 set(obj.stemHandle,'YData',Y);
 drawnow;
