@@ -1,6 +1,10 @@
 classdef (Hidden=true) FilterClass < handle
+    properties
+        userData
+    end
     properties (SetAccess = protected)
         Data
+        Name
     end
     methods (Abstract=true)
         filteredData = filter(obj,data)
