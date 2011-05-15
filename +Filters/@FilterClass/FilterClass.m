@@ -1,6 +1,7 @@
 classdef (Hidden=true) FilterClass < handle
     properties
         userData
+        listener
     end
     properties (SetAccess = protected)
         Data
