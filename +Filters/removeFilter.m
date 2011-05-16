@@ -1,8 +1,8 @@
-function removeFilter(filter,after)
-before = filter.listener.Source{1};
+function removeFilter(filter)
+before = filter.Prev;
+after = filter.Next;
+before.Next = after;
+after.Prev = before;
+delete(before.listener);
 delete(filter.listener);
-delete(after.listener);
-after.listener = addlistener(before,'FilteringComplete',@after.eventHandler);
-% filter
-% before
-% after
+before.listener = addlistener(before,'FilteringComplete',@after.eventHandler);

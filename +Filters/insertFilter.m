@@ -1,6 +1,10 @@
-function insertFilter(filter,after)
-before = after.listener.Source{1};
+function insertFilter(filter,before,after)
+% Adjust Next and Prev
+before.Next = filter;
+filter.Prev = before;
+filter.Next = after;
+after.Prev = filter;
 % Delete listener from filter before
 delete(before.listener);
-filter.listener = addlistener(before,'FilteringComplete',@filter.eventHandler);
-after.listener = addlistener(filter,'FilteringComplete',@after.eventHandler);
+before.listener = addlistener(before,'FilteringComplete',@filter.eventHandler);
+filter.listener = addlistener(filter,'FilteringComplete',@after.eventHandler);
