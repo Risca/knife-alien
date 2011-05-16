@@ -1,6 +1,6 @@
 classdef LowpassFilter < Filters.FilterClass & handle & hgsetget
-    properties (SetAccess = protected)
-        CutOffFreq
+    properties 
+        CutOffFreq = 1000;
     end
     
     methods

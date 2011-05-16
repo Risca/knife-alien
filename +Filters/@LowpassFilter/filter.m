@@ -1,3 +1,5 @@
+    % Filter function for LowpassFilter
+
 function filteredData = filter (obj, data)
     
     % Data is assumed to be transformed.
@@ -16,4 +18,7 @@ function filteredData = filter (obj, data)
     % Filter data:
     obj.Data = data .* filteringMask;
     filteredData = obj.Data;
+    
+    % Notify world
+    notify(obj,'FilteringComplete');
 end
