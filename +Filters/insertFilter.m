@@ -1,5 +1,6 @@
-function insertFilter(filter,before,after)
+function insertFilter(filter,after)
 % Adjust Next and Prev
+before = after.Prev;
 if ~isempty(before)
     before.Next = filter;
 end
