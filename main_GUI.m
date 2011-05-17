@@ -82,12 +82,16 @@ handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
 set(handles.audioObj,'TimerPeriod', dT);
 addlistener(handles.audioObj,'NewAudioData',@audioTimerFcn);
 dummy = Filters.DummyFilter;
+firstDummy = Filters.DummyFilter;
+firstDummy.Next = dummy;
+dummy.Prev = firstDummy;
 set(dummy,'userData',stemHandle2);
 set(dummy,'Fs',fs);
 set(dummy,'Nfft',Nfft);
-handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@dummy.eventHandler);
+handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@firstDummy.eventHandler);
 addlistener(dummy,'FilteringComplete',@audioTimerFcn);
 handles.dummy = dummy;
+handles.firstDummy = firstDummy;
 
 % Start recording
 record(handles.audioObj);
