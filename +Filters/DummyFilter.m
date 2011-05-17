@@ -7,6 +7,9 @@ classdef (Hidden=true) DummyFilter < Filters.FilterClass & handle & hgsetget
             obj.Data = data;
             filteredData = obj.Data;
             notify(obj,'FilteringComplete');
+            if ~isempty(obj.Next)
+                obj.Next.filter(obj.Data);
+            end    
         end
     end
 end
