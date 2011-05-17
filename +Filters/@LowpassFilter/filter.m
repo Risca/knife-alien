@@ -21,4 +21,7 @@ function filteredData = filter (obj, data)
     
     % Notify world
     notify(obj,'FilteringComplete');
+    if ~isempty(obj.Next)
+        obj.Next.filter(obj.Data);
+    end
 end
