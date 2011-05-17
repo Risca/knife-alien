@@ -1,7 +1,6 @@
-classdef HighpassFilter < Filters.FilterClass & handle & hgsetget
-    
+classdef HighpassFilter < Filters.FilterClass & handle & hgsetget    
     properties 
-        CutOffFreq = 1000
+        CutOffFreq = 800;
     end
     
     methods
