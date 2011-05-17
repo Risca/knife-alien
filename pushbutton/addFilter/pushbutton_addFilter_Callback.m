@@ -30,7 +30,7 @@ if numel(contents) == 1
     handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@newFilter.eventHandler);
 end
 % Start recorder
-recordblocking(handles.audioObj,5);
+record(handles.audioObj);
 
 set(handles.listbox_activeFilters,'String', contents);
 set(handles.listbox_activeFilters,'Value', numel(contents));
