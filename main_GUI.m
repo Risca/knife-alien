@@ -22,7 +22,7 @@ function varargout = main_GUI(varargin)
 
 % Edit the above text to modify the response to help main_GUI
 
-% Last Modified by GUIDE v2.5 17-May-2011 10:39:35
+% Last Modified by GUIDE v2.5 17-May-2011 15:45:19
 
 % Begin initialization code - DO NOT EDIT
 addpath(genpath('graph'));
@@ -30,6 +30,7 @@ addpath('helpers');
 addpath(genpath('listbox'));
 addpath(genpath('pushbutton'));
 addpath(genpath('AudioSourceSelection'));
+addpath(genpath('FilterConfig'));
 
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
@@ -116,11 +117,3 @@ varargout{1} = handles.output;
 
 % Hints: contents = cellstr(get(hObject,'String')) returns listbox_activeFilters contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from listbox_activeFilters
-
-
-
-
-
-
-
-
