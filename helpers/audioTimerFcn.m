@@ -20,7 +20,7 @@ if isempty(Y) || max(Y) == 0;
 else
     ymax = ceil(max(Y));
 end
-%Sen new limits for the graph and draw the new data.
+%Send new limits for the graph and draw the new data.
 set(handle_graph, 'XLim', [0 newendindex*(Fs/Nfft)]);
 set(handle_graph, 'YLim', [0 ymax]);
 set(obj.userData,'YData',Y);
