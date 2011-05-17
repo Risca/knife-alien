@@ -1,6 +1,7 @@
 classdef (Hidden=true) FilterClass < handle
     properties
         Fs
+        Nfft
         userData
     end
     properties (Hidden=true)
