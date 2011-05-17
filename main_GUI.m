@@ -89,12 +89,15 @@ addlistener(handles.audioObj,'NewAudioData',@dummy.eventHandler);
 addlistener(dummy,'FilteringComplete',@audioTimerFcn);
 
 % Start recording
-record(handles.audioObj);
+%record(handles.audioObj);
 
-% Update handles structure
-guidata(hObject, handles);
+% Add some filters to listbox
+handles.availableFilters = cell(3,1);
+handles.availableFilters{3} = Filters.HighpassFilter;
+handles.availableFilters{2} = Filters.BandpassFilter;
+handles.availableFilters{1} = Filters.LowpassFilter;
+update_listbox(hObject, handles)
 
-update_listbox(handles)
 set(handles.listbox_availableFilters,'Value',1)
 set(handles.listbox_activeFilters,'Value',1)
 
@@ -102,6 +105,9 @@ set(handles.listbox_activeFilters,'Value',1)
 set(handles.figure1,'CloseRequestFcn',@closeFcn);
 % UIWAIT makes main_GUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
+
+% Update handles structure
+guidata(hObject, handles);
 
 % --- Outputs from this function are returned to the command line.
 function varargout = main_GUI_OutputFcn(hObject, eventdata, handles)
