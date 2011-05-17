@@ -15,8 +15,13 @@ if maxindex < xlim(end)*(Nfft/fs)
 else
     newendindex = floor(maxindex/(1 - 0.15));
 end
+if isempty(Y) || max(Y) == 0;
+    ymax = 0.5;
+else
+    ymax = ceil(max(Y));
+end
 %Sätt ut nya gränser och rita upp ny data.
 set(handle_graph_input, 'XLim', [0 newendindex*(fs/Nfft)]);
-set(handle_graph_input, 'YLim', [0 ceil(max(Y))]);
+set(handle_graph_input, 'YLim', [0 ymax]);
 set(obj.stemHandle,'YData',Y);
 drawnow;

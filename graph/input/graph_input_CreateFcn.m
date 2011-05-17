@@ -5,4 +5,4 @@ function graph_input_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: place code in OpeningFcn to populate graph_input
-updateGraphInput(hObject);
+%updateGraphInput(hObject);
