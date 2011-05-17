@@ -1,6 +1,6 @@
 function audioTimerFcn(obj,eventData)
-fs = obj.fftData.fs;
-Nfft = obj.fftData.Nfft;
+fs = obj.fs;
+Nfft = obj.Nfft;
 Y = obj.Data;
 %Make dynamic x-axis
 handle_graph = get(obj.userData, 'Parent');
