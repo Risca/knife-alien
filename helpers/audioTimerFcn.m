@@ -1,5 +1,5 @@
 function audioTimerFcn(obj,eventData)
-fs = obj.fs;
+Fs = obj.Fs;
 Nfft = obj.Nfft;
 Y = obj.Data;
 %Make dynamic x-axis
@@ -8,10 +8,10 @@ xlim = get(handle_graph, 'XLim');
 %Find the last intresting index
 maxindex = find(Y > 0.05, 1, 'last');
 if isempty(maxindex)
-    maxindex = xlim(end)*(Nfft/fs)/2;
+    maxindex = xlim(end)*(Nfft/Fs)/2;
 end
-if maxindex < xlim(end)*(Nfft/fs)
-    newendindex = floor(xlim(end)*Nfft/fs - floor(0.02*(xlim(end)*Nfft/fs - maxindex)));
+if maxindex < xlim(end)*(Nfft/Fs)
+    newendindex = floor(xlim(end)*Nfft/Fs - floor(0.02*(xlim(end)*Nfft/Fs - maxindex)));
 else
     newendindex = floor(maxindex/(1 - 0.15));
 end
@@ -21,7 +21,7 @@ else
     ymax = ceil(max(Y));
 end
 %Sen new limits for the graph and draw the new data.
-set(handle_graph, 'XLim', [0 newendindex*(fs/Nfft)]);
+set(handle_graph, 'XLim', [0 newendindex*(Fs/Nfft)]);
 set(handle_graph, 'YLim', [0 ymax]);
 set(obj.userData,'YData',Y);
 drawnow;
