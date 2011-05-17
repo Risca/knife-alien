@@ -13,7 +13,7 @@ function filteredData = filter (obj, data)
     if n > length(data)
         n = length(data);
     end
-    filteringMask = [ ones(1,n) zeros(1,(length(data)-n)) ];
+    filteringMask = [ ones(1,n) zeros(1,(length(data)-n)) ]';
     
     % Filter data:
     obj.Data = data .* filteringMask;
