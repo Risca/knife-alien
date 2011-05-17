@@ -16,7 +16,7 @@ function filteredData = filter (obj, data)
         n = length(data);
     end
     
-    filteringMask = [ zeros(1,n) ones(1,(length(data)-n)) ];
+    filteringMask = [ zeros(1,n) ones(1,(length(data)-n)) ]';
     
     % Filter data:
     obj.Data = data .* filteringMask;
@@ -24,4 +24,5 @@ function filteredData = filter (obj, data)
 
     % Notify world
     notify(obj,'FilteringComplete');
+    obj.Next.filter(obj.Data);
 end

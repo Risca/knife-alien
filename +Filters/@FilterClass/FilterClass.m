@@ -1,7 +1,9 @@
 classdef (Hidden=true) FilterClass < handle
     properties
+        Fs
+    end
+    properties (Hidden=true)
         userData
-        listener
         Next
         Prev
     end
