@@ -71,6 +71,7 @@ Nfft = floor(fs*dT);
 f = (0:Nfft/2-1)*fs/Nfft;
 % Setup stem plot for unfiltered fft plot
 stemHandle = stem(handles.graph_input,f,zeros(1,length(f)));
+stemHandle2 = stem(handles.graph_output,f,zeros(1,length(f)));
 set(handles.graph_input,'ALimMode','manual');
 set(handles.graph_input,'YLim',[0 0.5]);
 set(handles.graph_input,'XLim',[0 f(end)]);
@@ -79,6 +80,15 @@ set(handles.graph_input,'XLim',[0 f(end)]);
 handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
 set(handles.audioObj,'TimerPeriod', dT);
 addlistener(handles.audioObj,'NewAudioData',@audioTimerFcn);
+handles.activeFilters = cell(3,1);
+dummy = Filters.DummyFilter;
+set(dummy,'userData',stemHandle2);
+set(dummy,'Fs',fs);
+set(dummy,'Nfft',Nfft);
+handles.activeFilters{1} = dummy;
+addlistener(handles.audioObj,'NewAudioData',@dummy.eventHandler);
+addlistener(dummy,'FilteringComplete',@audioTimerFcn);
+
 % Start recording
 record(handles.audioObj);
 
