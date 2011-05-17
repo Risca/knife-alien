@@ -3,7 +3,7 @@ fs = obj.fftData.fs;
 Nfft = obj.fftData.Nfft;
 Y = obj.Data;
 %Make dynamic x-axis
-handle_graph_input = get(obj.stemHandle, 'Parent');
+handle_graph_input = get(obj.userData, 'Parent');
 xlim = get(handle_graph_input, 'XLim');
 %Find the last intresting index
 maxindex = find(Y > 0.05, 1, 'last');
@@ -23,5 +23,5 @@ end
 %Sätt ut nya gränser och rita upp ny data.
 set(handle_graph_input, 'XLim', [0 newendindex*(fs/Nfft)]);
 set(handle_graph_input, 'YLim', [0 ymax]);
-set(obj.stemHandle,'YData',Y);
+set(obj.userData,'YData',Y);
 drawnow;
