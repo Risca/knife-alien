@@ -85,11 +85,12 @@ dummy = Filters.DummyFilter;
 set(dummy,'userData',stemHandle2);
 set(dummy,'Fs',fs);
 set(dummy,'Nfft',Nfft);
-addlistener(handles.audioObj,'NewAudioData',@dummy.eventHandler);
+handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@dummy.eventHandler);
 addlistener(dummy,'FilteringComplete',@audioTimerFcn);
+handles.dummy = dummy;
 
 % Start recording
-%record(handles.audioObj);
+record(handles.audioObj);
 
 % Add some filters to listbox
 handles.availableFilters = cell(3,1);
