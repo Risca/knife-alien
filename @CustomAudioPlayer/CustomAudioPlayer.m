@@ -1,4 +1,4 @@
-classdef CustomAudioPlayer
+classdef CustomAudioPlayer < handle
 
     properties
         Fs      % Sampling frequency
@@ -7,7 +7,6 @@ classdef CustomAudioPlayer
     properties (SetAccess = protected)
         Data    % Audiodata
         fftData
-        Running    % Indocates if player is running
     end
     
     properties (Access = 'private')
@@ -33,10 +32,7 @@ classdef CustomAudioPlayer
         end
         
         function start(obj)
-            
             start( obj.timerObj );
-            get( obj.timerObj, 'Running')
-            disp( 'startAudioPlayer executed' ); 
         end
         
         function stop(obj)
@@ -45,6 +41,15 @@ classdef CustomAudioPlayer
         
         function customTimerFcn( obj, src, EventData )
             disp( 'customTimerFcn Executed');
+        end
+        
+        % Returns true if the player is playing.
+        function playing = isrecording( obj )
+            if strcmp(obj.timerObj.Running, 'on')
+                playing = true;
+            else
+                playing = false;
+            end            
         end
     end
     
