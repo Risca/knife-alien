@@ -68,13 +68,15 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     % Declare some stuff for sampling and the fft
     fs = 22050;
     dT = 0.05;
-    f = (0:fs/2);
+    f = (1:fs/2);
     % Setup stem plot for unfiltered fft plot
     stemHandle = stem(handles.graph_input,f,zeros(1,length(f)));
     stemHandle2 = stem(handles.graph_output,f,zeros(1,length(f)));
     set(handles.graph_input,'ALimMode','manual');
     set(handles.graph_input,'YLim',[0 0.5]);
     set(handles.graph_input,'XLim',[0 f(end)]);
+    set(stemHandle,'Marker','none');
+    set(stemHandle2,'Marker','none');
 
     handles.stemHandles.input = stemHandle;
     handles.stemHandles.output = stemHandle2;
@@ -93,16 +95,17 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     
     dummy = Filters.DummyFilter;
     firstDummy = Filters.DummyFilter;
-    addlistener(firstDummy,'FilteringComplete',@audioTimerFcn);
     firstDummy.Next = dummy;
     dummy.Prev = firstDummy;
-    set(dummy,'userData',stemHandle2);
     set(firstDummy,'userData',stemHandle);
+    set(dummy,'userData',stemHandle2);
     set(dummy,'Fs',fs);
+    set(firstDummy,'Fs',fs);
     handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@firstDummy.eventHandler);
     addlistener(dummy,'FilteringComplete',@audioTimerFcn);
     handles.dummy = dummy;
     handles.firstDummy = firstDummy;
+    addlistener(firstDummy,'FilteringComplete',@audioTimerFcn);
 
 %     addlistener(dummy,'FilteringComplete',@saveFilteredAudio);
     % Start recording
