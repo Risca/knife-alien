@@ -5,6 +5,8 @@ Nfft = numel(obj.Data);
 Y = abs(obj.Data)*2/Nfft;
 %Make dynamic x-axis
 handle_graph = get(obj.userData, 'Parent');
+% stemHandle = get(handle_graph,'Children')
+% stemHandle = stemHandle(1);
 xlim = get(handle_graph, 'XLim');
 %Find the last intresting index
 maxindex = find(Y > 0.05, 1, 'last');
@@ -22,9 +24,12 @@ else
     ymax = ceil(max(Y));
 end
 %Send new limits for the graph and draw the new data.
+max_f = Fs/2;
+f = 1:max_f/numel(Y):max_f;
 if newendindex ~= 0
     set(handle_graph, 'XLim', [0 newendindex*(Fs/Nfft)]);
 end
 set(handle_graph, 'YLim', [0 ymax]);
+set(obj.userData,'XData',f);
 set(obj.userData,'YData',Y);
 drawnow;
