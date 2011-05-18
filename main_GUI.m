@@ -100,7 +100,6 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     set(dummy,'userData',stemHandle2);
     set(firstDummy,'userData',stemHandle);
     set(dummy,'Fs',fs);
-    set(dummy,'Nfft',Nfft);
     handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@firstDummy.eventHandler);
     addlistener(dummy,'FilteringComplete',@audioTimerFcn);
     handles.dummy = dummy;
