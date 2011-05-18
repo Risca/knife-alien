@@ -11,7 +11,8 @@ if index_selected < numel(contents);
     contents(index_selected) = temp;
     set(handles.listbox_activeFilters,'String', contents);
     set(handles.listbox_activeFilters,'Value', index_selected + 1);
-    
+
+    % Find first affected filter
     filterObj = handles.firstDummy.Next;
     k = 1;
     while k < index_selected
@@ -21,7 +22,7 @@ if index_selected < numel(contents);
     % Stop recorder
     stop(handles.audioObj);
     % Make the swap
-    Filters.swapAdjecent(filterObj,filterObj.Next);
+    Filters.swapAdjacent(filterObj,filterObj.Next);
     % Start recorder
     record(handles.audioObj);
 end
