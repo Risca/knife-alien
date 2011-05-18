@@ -46,6 +46,15 @@ classdef CustomAudioPlayer
         function customTimerFcn( obj, src, EventData )
             disp( 'customTimerFcn Executed');
         end
+        
+        % Returns true if the player is playing.
+        function playing = isrecording( obj )
+           if strcmp(obj.running, 'on')
+               playing = true;
+           else
+               playing = false;
+           end            
+        end
     end
     
 end
