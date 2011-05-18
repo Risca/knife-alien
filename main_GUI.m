@@ -92,13 +92,12 @@ firstDummy.Next = dummy;
 dummy.Prev = firstDummy;
 set(dummy,'userData',stemHandle2);
 set(dummy,'Fs',fs);
-set(dummy,'Nfft',Nfft);
 handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@firstDummy.eventHandler);
 addlistener(dummy,'FilteringComplete',@audioTimerFcn);
 handles.dummy = dummy;
 handles.firstDummy = firstDummy;
 
-addlistener(dummy,'FilteringComplete',@saveFilteredAudio);
+% addlistener(dummy,'FilteringComplete',@saveFilteredAudio);
 % Start recording
 record(handles.audioObj);
 
