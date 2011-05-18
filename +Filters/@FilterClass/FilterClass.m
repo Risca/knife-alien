@@ -18,6 +18,8 @@ classdef (Hidden=true) FilterClass < handle
     end
     methods
         function eventHandler(obj,src,eventData)
+            % Pass on Nfft to next filter
+            obj.Nfft = src.Nfft;
             obj.filter(src.Data);
         end
     end
