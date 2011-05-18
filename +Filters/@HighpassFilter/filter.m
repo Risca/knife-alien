@@ -1,9 +1,6 @@
     % Filter function for HighpassFilter
 
 function filteredData = filter (obj, data)
-    % Pass on previus filters' Nfft
-    obj.Nfft = obj.Prev.Nfft;
-        
     % Data is assumed to be transformed.
     % Sample frequency hard-coded for now
     fs = 22050;
