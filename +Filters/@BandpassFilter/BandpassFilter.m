@@ -9,7 +9,7 @@ classdef BandpassFilter < Filters.FilterClass & handle & hgsetget
             obj.Name = 'Bandpass';
         end
         
-        function SetLowFreq(obj, frequency)
+        function setLowFreq(obj, frequency)
             obj.lowFreq = frequency;
         end
         
