@@ -21,9 +21,18 @@ while k < index_selected
     oldFilter = oldFilter.Next;
     k=k+1;
 end
-stop(handles.audioObj);
+
+wasRunning = handles.audioObj.isrecording();
+if wasRunning
+    % Stop recorder
+    pause(handles.audioObj);
+end
+% Remove filter
 Filters.removeFilter(oldFilter);
-record(handles.audioObj);
+if wasRunning
+    % Resume recording
+    resume(handles.audioObj);
+end
 
 set(handles.listbox_activeFilters,'String', contents);
 updateMoveFilterButtons(handles);

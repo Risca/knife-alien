@@ -20,12 +20,17 @@ end
 
 % Create new filter
 eval(['newFilter = ' class(handles.availableFilters{k}) ';']);
-% Stop recorder
-stop(handles.audioObj);
+wasRunning = handles.audioObj.isrecording();
+if wasRunning
+    % Stop recorder
+    pause(handles.audioObj);
+end
 % Insert filter
 Filters.insertFilter(newFilter,handles.dummy);
-% Start recorder
-record(handles.audioObj);
+if wasRunning
+    % Resume recording
+    resume(handles.audioObj);
+end
 
 set(handles.listbox_activeFilters,'String', contents);
 set(handles.listbox_activeFilters,'Value', numel(contents));

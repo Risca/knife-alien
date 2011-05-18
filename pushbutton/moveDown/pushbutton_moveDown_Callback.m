@@ -19,11 +19,17 @@ if index_selected < numel(contents);
         filterObj = filterObj.Next;
         k=k+1;
     end
-    % Stop recorder
-    stop(handles.audioObj);
+
+    wasRunning = handles.audioObj.isrecording();
+    if wasRunning
+        % Stop recorder
+        pause(handles.audioObj);
+    end
     % Make the swap
     Filters.swapAdjacent(filterObj,filterObj.Next);
-    % Start recorder
-    record(handles.audioObj);
+    if wasRunning
+        % Resume recording
+        resume(handles.audioObj);
+    end
 end
 updateMoveFilterButtons(handles);
