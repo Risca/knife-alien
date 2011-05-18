@@ -20,7 +20,7 @@ classdef CustomAudioRecorder < audiorecorder & handle
         function customTimerFcn(obj,src,eventData)
             audioData = getaudiodata(src);
             % Update number of samples since last time this function ran
-            obj.Nfft = obj.TotalSamples - obj.lastSample
+            obj.Nfft = obj.TotalSamples - obj.lastSample;
             obj.lastSample = obj.TotalSamples;
             % Only process last Nfft samples
             audioData = audioData(end-obj.Nfft:end);
