@@ -93,6 +93,7 @@ addlistener(dummy,'FilteringComplete',@audioTimerFcn);
 handles.dummy = dummy;
 handles.firstDummy = firstDummy;
 
+addlistener(dummy,'FilteringComplete',@saveFilteredAudio);
 % Start recording
 record(handles.audioObj);
 
