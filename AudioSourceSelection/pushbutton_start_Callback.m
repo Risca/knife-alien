@@ -6,21 +6,24 @@ function pushbutton_start_Callback(hObject, eventdata, handles)
 
 % Check which source is selected
 if get( handles.radiobutton_select_mic, 'Value')
+    
     % Start microphone audio source
-    'starting microphone'
+    disp('starting microphone');
+%     handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
+%     set(handles.audioObj,'TimerPeriod', dT);
 
 else
     % Start file audio source
     if  strcmp( get(handles.txtbox_filename, 'String'), 'Enter filename' )
         % Do nothing
-        'No filename entered'
+        disp( 'No filename entered' );
     else
         % Try to find file
         if  2 == exist( get(handles.txtbox_filename, 'String'),'file')
             % Fil exists, open file
         else
             % File does not exist, do nothing 
-            'File does not exist!'
+            disp( 'File does not exist!' );
         end
     end
 end
