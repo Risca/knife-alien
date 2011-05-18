@@ -14,5 +14,16 @@ else
     contents(index_selected) = {''};
     set(handles.pushbutton_removeFilter, 'Enable', 'off');
 end
+
+oldFilter = handles.firstDummy.Next;
+k = 1;
+while k < index_selected
+    oldFilter = oldFilter.Next;
+    k=k+1;
+end
+stop(handles.audioObj);
+Filters.removeFilter(oldFilter);
+record(handles.audioObj);
+
 set(handles.listbox_activeFilters,'String', contents);
 updateMoveFilterButtons(handles);
