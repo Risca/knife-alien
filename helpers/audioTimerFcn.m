@@ -22,7 +22,9 @@ else
     ymax = ceil(max(Y));
 end
 %Send new limits for the graph and draw the new data.
-set(handle_graph, 'XLim', [0 newendindex*(Fs/Nfft)]);
+if newendindex ~= 0
+    set(handle_graph, 'XLim', [0 newendindex*(Fs/Nfft)]);
+end
 set(handle_graph, 'YLim', [0 ymax]);
 set(obj.userData,'YData',Y);
 drawnow;
