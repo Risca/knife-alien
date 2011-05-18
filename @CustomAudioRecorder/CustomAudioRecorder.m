@@ -1,6 +1,5 @@
 classdef CustomAudioRecorder < audiorecorder & handle
     properties
-        userData
         listener
     end
     properties (SetAccess = protected)
@@ -10,11 +9,9 @@ classdef CustomAudioRecorder < audiorecorder & handle
         lastSample
     end
     methods
-        function obj = CustomAudioRecorder(Fs,nBits,nChannels,Nfft,stemHandle)
+        function obj = CustomAudioRecorder(Fs,nBits,nChannels)
             obj = obj@audiorecorder(Fs,nBits,nChannels);
             obj.Fs = Fs;
-            obj.Nfft = Nfft;
-            obj.userData = stemHandle;
             obj.TimerFcn = @obj.customTimerFcn;
         end
         function customTimerFcn(obj,src,eventData)
