@@ -22,7 +22,7 @@ function varargout = main_GUI(varargin)
 
 % Edit the above text to modify the response to help main_GUI
 
-% Last Modified by GUIDE v2.5 17-May-2011 15:45:19
+% Last Modified by GUIDE v2.5 18-May-2011 19:52:34
 
 % Begin initialization code - DO NOT EDIT
 addpath(genpath('graph'));
@@ -78,8 +78,13 @@ set(handles.graph_input,'YLim',[0 0.5]);
 set(handles.graph_input,'XLim',[0 f(end)]);
 
 % Setup audio object
+
+
+% Bör lyftas ut någonstans...
 handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
 set(handles.audioObj,'TimerPeriod', dT);
+%%%%%%
+
 addlistener(handles.audioObj,'NewAudioData',@audioTimerFcn);
 dummy = Filters.DummyFilter;
 firstDummy = Filters.DummyFilter;
@@ -126,3 +131,5 @@ varargout{1} = handles.output;
 
 % Hints: contents = cellstr(get(hObject,'String')) returns listbox_activeFilters contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from listbox_activeFilters
+
+
