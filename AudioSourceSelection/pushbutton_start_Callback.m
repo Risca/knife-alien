@@ -9,9 +9,20 @@ if get( handles.radiobutton_select_mic, 'Value')
     
     % Start microphone audio source
     disp('starting microphone');
-%     handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
+%     fs = 22050;
+%     dT = 0.05;
+%     Nfft = floor(fs*dT);
+%    
+%     
+%     
+%     handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,handles.stemHandles.input);
 %     set(handles.audioObj,'TimerPeriod', dT);
-
+%     
+%     addlistener(handles.audioObj,'NewAudioData',@audioTimerFcn);
+%     handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@handles.firstDummy.eventHandler);
+%    
+    record(handles.audioObj);
+       
 else
     % Start file audio source
     if  strcmp( get(handles.txtbox_filename, 'String'), 'Enter filename' )
@@ -20,7 +31,10 @@ else
     else
         % Try to find file
         if  2 == exist( get(handles.txtbox_filename, 'String'),'file')
-            % Fil exists, open file
+            % File exists, open file
+            
+            
+            
         else
             % File does not exist, do nothing 
             disp( 'File does not exist!' );
