@@ -1,14 +1,14 @@
 classdef (Hidden=true) FilterClass < handle
     properties
-        Fs
-        Nfft
-        userData
+        
     end
     properties (Hidden=true)
+        Fs
+        userData
         Next
         Prev
     end
-    properties (SetAccess = protected)
+    properties (SetAccess = protected, Hidden = true)
         Data
         Name
     end

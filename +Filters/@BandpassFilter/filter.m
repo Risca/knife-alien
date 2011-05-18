@@ -1,7 +1,6 @@
     % Filter function for BandpassFilter
 
 function filteredData = filter (obj, data)
-
     % Data is assumed to be transformed.
     % Sample frequency hard-coded for now
     fs = 22050;

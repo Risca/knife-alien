@@ -14,7 +14,7 @@ classdef BandpassFilter < Filters.FilterClass & handle & hgsetget
         end
         
         function SetHighFreq(obj, frequency)
-            obj.lighFreq = frequency;
+            obj.highFreq = frequency;
         end
     end
 end
