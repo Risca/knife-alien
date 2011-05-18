@@ -24,11 +24,6 @@ eval(['newFilter = ' class(handles.availableFilters{k}) ';']);
 stop(handles.audioObj);
 % Insert filter
 Filters.insertFilter(newFilter,handles.dummy);
-% Check to see if this was the first filter added ever
-% if numel(contents) == 1
-%     delete(handles.audioObj.listener);
-%     handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@newFilter.eventHandler);
-% end
 % Start recorder
 record(handles.audioObj);
 
