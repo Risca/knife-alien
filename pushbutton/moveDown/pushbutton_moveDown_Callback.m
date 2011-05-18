@@ -5,11 +5,24 @@ function pushbutton_moveDown_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 contents = cellstr(get(handles.listbox_activeFilters,'String'));
 index_selected = get(handles.listbox_activeFilters,'Value');
-if index_selected < length(contents);
+if index_selected < numel(contents);
     temp = contents(index_selected + 1);
     contents(index_selected + 1) = contents(index_selected);
     contents(index_selected) = temp;
     set(handles.listbox_activeFilters,'String', contents);
     set(handles.listbox_activeFilters,'Value', index_selected + 1);
+    
+    filterObj = handles.firstDummy.Next;
+    k = 1;
+    while k < index_selected
+        filterObj = filterObj.Next;
+        k=k+1;
+    end
+    % Stop recorder
+    stop(handles.audioObj);
+    % Make the swap
+    Filters.swapAdjecent(filterObj,filterObj.Next);
+    % Start recorder
+    record(handles.audioObj);
 end
 updateMoveFilterButtons(handles);
