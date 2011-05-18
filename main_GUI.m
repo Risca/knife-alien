@@ -68,8 +68,7 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     % Declare some stuff for sampling and the fft
     fs = 22050;
     dT = 0.05;
-    Nfft = floor(fs*dT);
-    f = (0:Nfft/2-1)*fs/Nfft;
+    f = (0:fs/2);
     % Setup stem plot for unfiltered fft plot
     stemHandle = stem(handles.graph_input,f,zeros(1,length(f)));
     stemHandle2 = stem(handles.graph_output,f,zeros(1,length(f)));
@@ -87,7 +86,7 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     handles.audioObj = [];
 
     % Bör lyftas ut någonstans...
-    handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
+    handles.audioObj = CustomAudioRecorder(fs,16,1);
     set(handles.audioObj,'TimerPeriod', dT);
     %%%%%%
 
