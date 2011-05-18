@@ -53,72 +53,80 @@ end
 
 % --- Executes just before main_GUI is made visible.
 function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
-% This function has no output args, see OutputFcn.
-% hObject    handle to figure
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to main_GUI (see VARARGIN)
+    % This function has no output args, see OutputFcn.
+    % hObject    handle to figure
+    % eventdata  reserved - to be defined in a future version of MATLAB
+    % handles    structure with handles and user data (see GUIDATA)
+    % varargin   command line arguments to main_GUI (see VARARGIN)
 
-% Choose default command line output for main_GUI
-handles.output = hObject;
+    % Choose default command line output for main_GUI
+    handles.output = hObject;
 
-% Update handles structure
-guidata(hObject, handles);
+    % Update handles structure
+    guidata(hObject, handles);
 
-% Declare some stuff for sampling and the fft
-fs = 22050;
-dT = 0.05;
-Nfft = floor(fs*dT);
-f = (0:Nfft/2-1)*fs/Nfft;
-% Setup stem plot for unfiltered fft plot
-stemHandle = stem(handles.graph_input,f,zeros(1,length(f)));
-stemHandle2 = stem(handles.graph_output,f,zeros(1,length(f)));
-set(handles.graph_input,'ALimMode','manual');
-set(handles.graph_input,'YLim',[0 0.5]);
-set(handles.graph_input,'XLim',[0 f(end)]);
+    % Declare some stuff for sampling and the fft
+    fs = 22050;
+    dT = 0.05;
+    Nfft = floor(fs*dT);
+    f = (0:Nfft/2-1)*fs/Nfft;
+    % Setup stem plot for unfiltered fft plot
+    stemHandle = stem(handles.graph_input,f,zeros(1,length(f)));
+    stemHandle2 = stem(handles.graph_output,f,zeros(1,length(f)));
+    set(handles.graph_input,'ALimMode','manual');
+    set(handles.graph_input,'YLim',[0 0.5]);
+    set(handles.graph_input,'XLim',[0 f(end)]);
 
-% Setup audio object
+    handles.stemHandles.input = stemHandle;
+    handles.stemHandles.output = stemHandle2;
 
+    % Setup audio object
 
-% Bör lyftas ut någonstans...
-handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
-set(handles.audioObj,'TimerPeriod', dT);
-%%%%%%
+    % Create empty place to store audio recorder or player (needed for
+    % closeFcn)
+    handles.audioObj = [];
 
-addlistener(handles.audioObj,'NewAudioData',@audioTimerFcn);
-dummy = Filters.DummyFilter;
-firstDummy = Filters.DummyFilter;
-firstDummy.Next = dummy;
-dummy.Prev = firstDummy;
-set(dummy,'userData',stemHandle2);
-set(dummy,'Fs',fs);
-set(dummy,'Nfft',Nfft);
-handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@firstDummy.eventHandler);
-addlistener(dummy,'FilteringComplete',@audioTimerFcn);
-handles.dummy = dummy;
-handles.firstDummy = firstDummy;
+    % Bör lyftas ut någonstans...
+    handles.audioObj = CustomAudioRecorder(fs,16,1,Nfft,stemHandle);
+    set(handles.audioObj,'TimerPeriod', dT);
+    %%%%%%
 
-addlistener(dummy,'FilteringComplete',@saveFilteredAudio);
-% Start recording
-record(handles.audioObj);
+    
+    dummy = Filters.DummyFilter;
+    firstDummy = Filters.DummyFilter;
+    addlistener(firstDummy,'FilteringComplete',@audioTimerFcn);
+    firstDummy.Next = dummy;
+    dummy.Prev = firstDummy;
+    set(dummy,'userData',stemHandle2);
+    set(firstDummy,'userData',stemHandle);
+    set(dummy,'Fs',fs);
+    set(dummy,'Nfft',Nfft);
+    handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@firstDummy.eventHandler);
+    addlistener(dummy,'FilteringComplete',@audioTimerFcn);
+    handles.dummy = dummy;
+    handles.firstDummy = firstDummy;
 
-% Add some filters to listbox
-handles.availableFilters = cell(3,1);
-handles.availableFilters{3} = Filters.HighpassFilter;
-handles.availableFilters{2} = Filters.BandpassFilter;
-handles.availableFilters{1} = Filters.LowpassFilter;
-update_listbox(hObject, handles)
+%     addlistener(dummy,'FilteringComplete',@saveFilteredAudio);
+    % Start recording
+%     record(handles.audioObj);
 
-set(handles.listbox_availableFilters,'Value',1)
-set(handles.listbox_activeFilters,'Value',1)
+    % Add some filters to listbox
+    handles.availableFilters = cell(3,1);
+    handles.availableFilters{3} = Filters.HighpassFilter;
+    handles.availableFilters{2} = Filters.BandpassFilter;
+    handles.availableFilters{1} = Filters.LowpassFilter;
+    update_listbox(hObject, handles)
 
-% closeFcn must stop the recording
-set(handles.figure1,'CloseRequestFcn',@closeFcn);
-% UIWAIT makes main_GUI wait for user response (see UIRESUME)
-% uiwait(handles.figure1);
+    set(handles.listbox_availableFilters,'Value',1)
+    set(handles.listbox_activeFilters,'Value',1)
 
-% Update handles structure
-guidata(hObject, handles);
+    % closeFcn must stop the recording
+    set(handles.figure1,'CloseRequestFcn',@closeFcn);
+    % UIWAIT makes main_GUI wait for user response (see UIRESUME)
+    % uiwait(handles.figure1);
+
+    % Update handles structure
+    guidata(hObject, handles);
 
 % --- Outputs from this function are returned to the command line.
 function varargout = main_GUI_OutputFcn(hObject, eventdata, handles)
