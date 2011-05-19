@@ -118,8 +118,9 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     handles.availableFilters{1} = Filters.LowpassFilter;
     update_listbox(hObject, handles)
 
-    set(handles.listbox_availableFilters,'Value',1)
-    set(handles.listbox_activeFilters,'Value',1)
+    %Following two lines is not neccesary./D
+    %set(handles.listbox_availableFilters,'Value',1)
+    %set(handles.listbox_activeFilters,'Value',1)
 
     % closeFcn must stop the recording
     set(handles.figure1,'CloseRequestFcn',@closeFcn);
