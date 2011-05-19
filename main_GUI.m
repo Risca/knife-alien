@@ -106,10 +106,7 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     handles.dummy = dummy;
     handles.firstDummy = firstDummy;
     addlistener(firstDummy,'FilteringComplete',@audioTimerFcn);
-
-%     addlistener(dummy,'FilteringComplete',@saveFilteredAudio);
-    % Start recording
-%     record(handles.audioObj);
+    addlistener(dummy,'FilteringComplete',@saveFilteredAudio);
 
     % Add some filters to listbox
     handles.availableFilters = cell(3,1);
