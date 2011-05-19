@@ -109,7 +109,8 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     addlistener(dummy,'FilteringComplete',@saveFilteredAudio);
 
     % Add some filters to listbox
-    handles.availableFilters = cell(4,1);
+    handles.availableFilters = cell(5,1);
+    handles.availableFilters{5} = Filters.CustomFilter;
     handles.availableFilters{4} = Filters.BandstopFilter;
     handles.availableFilters{3} = Filters.BandpassFilter;
     handles.availableFilters{2} = Filters.HighpassFilter;
