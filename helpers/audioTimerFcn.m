@@ -1,8 +1,10 @@
 function audioTimerFcn(obj,eventData)
 Fs = obj.Fs;
 Nfft = numel(obj.Data);
+% Clip ghost signals
+Y = obj.Data(1:Nfft/2);
 % Adjust magnitude
-Y = abs(obj.Data)*2/Nfft;
+Y = abs(Y)*2/Nfft;
 %Make dynamic x-axis
 handle_graph = get(obj.userData, 'Parent');
 % stemHandle = get(handle_graph,'Children')

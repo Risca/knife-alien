@@ -22,7 +22,7 @@ classdef CustomAudioRecorder < audiorecorder & handle
             % Only process last Nfft samples
             audioData = audioData(end-obj.Nfft:end);
             audioData = fft(audioData,obj.Nfft);
-            obj.Data = audioData(1:obj.Nfft/2);
+            obj.Data = audioData;%(1:obj.Nfft/2);
             notify(obj,'NewAudioData');
         end
         function reset(obj)

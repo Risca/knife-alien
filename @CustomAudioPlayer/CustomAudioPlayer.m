@@ -15,7 +15,6 @@ classdef CustomAudioPlayer < handle
         Nsamples    % Number of samples in audio file
         timerObj    % Timer
         position    % starting index of next chunk of data to be processed
-        
     end
     
     
@@ -46,6 +45,9 @@ classdef CustomAudioPlayer < handle
             stop( obj.timerObj );
             disp('stop called');
         end
+        function reset(obj)
+           obj.position = 1;            
+        end
         
         function customTimerFcn( obj, src, EventData )
             disp( 'customTimerFcn Executed');
@@ -62,6 +64,7 @@ classdef CustomAudioPlayer < handle
             obj.position = endIndex;
             
         % 2: Fouriertransformera
+%             obj.Data = tempData;
             obj.Data = fft(tempData);
             obj.Data = obj.Data(1:floor(length(obj.Data)/2));
             
@@ -77,6 +80,9 @@ classdef CustomAudioPlayer < handle
                 playing = false;
             end            
         end
+    end
+    events
+        NewAudioData
     end
     
 end

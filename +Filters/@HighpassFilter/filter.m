@@ -1,5 +1,4 @@
-    % Filter function for HighpassFilter
-
+% Filter function for HighpassFilter
 function filteredData = filter (obj, data)
     % Data is assumed to be transformed.
     % Sample frequency hard-coded for now
