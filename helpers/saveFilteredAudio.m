@@ -1,5 +1,5 @@
 function saveFilteredAudio(obj,eventData)
-audioData = ifft(obj.Data)*obj.Nfft/2;
+audioData = ifft(obj.Data);
 Y = 0;
 if exist('recorded_audio.wav','file')
     Y = wavread('recorded_audio.wav');
