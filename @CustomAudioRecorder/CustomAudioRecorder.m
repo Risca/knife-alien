@@ -25,6 +25,9 @@ classdef CustomAudioRecorder < audiorecorder & handle
             obj.Data = audioData(1:obj.Nfft/2);
             notify(obj,'NewAudioData');
         end
+        function reset(obj)
+            obj.lastSample = 0;
+        end
     end
     methods (Static,Hidden)
         % Overide audiorecorder's private, hidden validateFcn.
