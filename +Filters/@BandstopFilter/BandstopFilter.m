@@ -1,11 +1,11 @@
-classdef BandpassFilter < Filters.FilterClass & handle & hgsetget
+classdef BandstopFilter < Filters.FilterClass & handle & hgsetget
     properties
         lowFreq = 1000;
         highFreq = 5000;
     end
     
     methods
-        function obj = BandpassFilter(obj)
+        function obj = BandstopFilter(obj)
             obj.Name = 'Bandstop';
         end
     end
