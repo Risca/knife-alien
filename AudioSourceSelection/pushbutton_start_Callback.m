@@ -20,7 +20,12 @@ if get( handles.radiobutton_select_mic, 'Value')
 %     
 %     addlistener(handles.audioObj,'NewAudioData',@audioTimerFcn);
 %     handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@handles.firstDummy.eventHandler);
-%    
+
+    % Remove pre-existing file
+    if exist('recorded_audio.wav','file')
+        delete('recorded_audio.wav');
+    end
+    handles.audioObj.reset();
     record(handles.audioObj);
        
 else
