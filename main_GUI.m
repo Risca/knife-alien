@@ -92,15 +92,14 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     set(handles.audioObj,'TimerPeriod', dT);
     %%%%%%
 
-    
     dummy = Filters.DummyFilter;
     firstDummy = Filters.DummyFilter;
     firstDummy.Next = dummy;
     dummy.Prev = firstDummy;
-    set(firstDummy,'UserData',stemHandle);
-    set(dummy,'UserData',stemHandle2);
-    set(dummy,'Fs',fs);
+    set(firstDummy,'StemHandle',stemHandle);
+    set(dummy,'StemHandle',stemHandle2);
     set(firstDummy,'Fs',fs);
+    set(dummy,'Fs',fs);
     handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@firstDummy.eventHandler);
     addlistener(dummy,'FilteringComplete',@audioTimerFcn);
     handles.dummy = dummy;

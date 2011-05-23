@@ -1,4 +1,7 @@
 classdef (Hidden=true) DummyFilter < Filters.FilterClass & handle & hgsetget    
+    properties (Hidden=true)
+        StemHandle
+    end
     methods
         function obj = DummyFilter(obj)
             obj.Name = 'Dummy';
