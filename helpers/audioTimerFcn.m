@@ -6,7 +6,7 @@ Y = obj.Data(1:Nfft/2);
 % Adjust magnitude
 Y = abs(Y)*2/Nfft;
 %Make dynamic x-axis
-handle_graph = get(obj.userData, 'Parent');
+handle_graph = get(obj.UserData, 'Parent');
 % stemHandle = get(handle_graph,'Children')
 % stemHandle = stemHandle(1);
 xlim = get(handle_graph, 'XLim');
@@ -32,6 +32,6 @@ if newendindex ~= 0
     set(handle_graph, 'XLim', [0 newendindex*(Fs/Nfft)]);
 end
 set(handle_graph, 'YLim', [0 ymax]);
-set(obj.userData,'XData',f);
-set(obj.userData,'YData',Y);
+set(obj.UserData,'XData',f);
+set(obj.UserData,'YData',Y);
 drawnow;

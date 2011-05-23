@@ -97,8 +97,8 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     firstDummy = Filters.DummyFilter;
     firstDummy.Next = dummy;
     dummy.Prev = firstDummy;
-    set(firstDummy,'userData',stemHandle);
-    set(dummy,'userData',stemHandle2);
+    set(firstDummy,'UserData',stemHandle);
+    set(dummy,'UserData',stemHandle2);
     set(dummy,'Fs',fs);
     set(firstDummy,'Fs',fs);
     handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@firstDummy.eventHandler);

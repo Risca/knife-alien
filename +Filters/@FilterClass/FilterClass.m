@@ -1,7 +1,7 @@
 classdef (Hidden=true) FilterClass < handle
     properties (Hidden=true)
         Fs
-        userData
+        UserData
         Next
         Prev
     end
