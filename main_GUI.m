@@ -92,6 +92,9 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     set(handles.audioObj,'TimerPeriod', dT);
     %%%%%%
 
+    % Connect to pulseaudio deamon
+%     pa_ptr = initPulseaudio;
+    
     dummy = Filters.DummyFilter;
     firstDummy = Filters.DummyFilter;
     firstDummy.Next = dummy;
@@ -100,12 +103,14 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     set(dummy,'StemHandle',stemHandle2);
     set(firstDummy,'Fs',fs);
     set(dummy,'Fs',fs);
+%     set(dummy,'UserData',pa_ptr);
     handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@firstDummy.eventHandler);
     addlistener(dummy,'FilteringComplete',@audioTimerFcn);
     handles.dummy = dummy;
     handles.firstDummy = firstDummy;
     addlistener(firstDummy,'FilteringComplete',@audioTimerFcn);
     addlistener(dummy,'FilteringComplete',@saveFilteredAudio);
+%     addlistener(dummy,'FilteringComplete',@playFilteredAudio);
 
     % Add some filters to listbox
     handles.availableFilters = cell(5,1);
