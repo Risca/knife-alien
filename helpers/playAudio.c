@@ -17,7 +17,6 @@ void mexFunction(int nlhs, mxArray *plhs[],
     int nrhs, const mxArray *prhs[])
 {
     pa_operation *o;
-    int fork_pid;
     size_t writableSize;
     // Get data
     int16_t *data = (int16_t*)mxGetData(prhs[1]);
