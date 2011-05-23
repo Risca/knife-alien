@@ -93,7 +93,7 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     %%%%%%
 
     % Connect to pulseaudio deamon
-%     handles.pa_ptr = initPulseaudio;
+    handles.pa_ptr = initPulseaudio;
     
     dummy = Filters.DummyFilter;
     firstDummy = Filters.DummyFilter;
@@ -103,7 +103,7 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     set(dummy,'StemHandle',stemHandle2);
     set(firstDummy,'Fs',fs);
     set(dummy,'Fs',fs);
-%     set(dummy,'UserData',handles.pa_ptr);
+    set(dummy,'UserData',handles.pa_ptr);
     handles.audioObj.listener = addlistener(handles.audioObj,'NewAudioData',@firstDummy.eventHandler);
     addlistener(dummy,'FilteringComplete',@audioTimerFcn);
     handles.dummy = dummy;

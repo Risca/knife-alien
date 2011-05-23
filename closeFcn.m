@@ -6,6 +6,6 @@ if isempty(handles.audioObj) == 0
     stop(handles.audioObj);
 end
 
-% destroyPulseaudio(handles.pa_ptr);
+destroyPulseaudio(handles.pa_ptr);
 
 delete(gcf)
