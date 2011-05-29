@@ -26,7 +26,13 @@ void mexFunction(int nlhs, mxArray *plhs[],
     // Get PA settings
     uint64_t ptr = *(uint64_t*)(mxGetData(prhs[0]));
     pa_settings_t pa_ptrs = *(struct pa_settings*)(ptr);
-    
+
+    // Flush stream
+//     o=pa_stream_flush(pa_ptrs.pa_s,0,NULL);
+//     while(pa_operation_get_state(o) != PA_OPERATION_DONE) {
+//         pa_mainloop_iterate(pa_ptrs.pa_ml,1,NULL);
+//     }
+//     pa_operation_unref(o);
     // Determine how much we can put in buffer
     writableSize=pa_stream_writable_size(pa_ptrs.pa_s);
     if (writableSize < r)
