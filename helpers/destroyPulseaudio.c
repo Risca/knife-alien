@@ -20,6 +20,7 @@ void mexFunction(int nlhs, mxArray *plhs[],
     uint64_t ptr = *(uint64_t*)(mxGetData(prhs[0]));
     pa_settings_t pa_ptrs = *(struct pa_settings*)(ptr);
     
+    // Shutdown everything
     pa_stream_disconnect(pa_ptrs.pa_s);
     pa_context_disconnect(pa_ptrs.pa_ctx);
     pa_context_unref(pa_ptrs.pa_ctx);

@@ -113,6 +113,7 @@ void mexFunction(int nlhs, mxArray *plhs[],
             );
     pa_stream_set_state_callback(pa_ptrs.pa_s,pa_stream_cb,&pa_conn);
     
+    /* Wait for connection or timeout */
     for (int i=0;pa_conn == 0 && i<1000;i++) {
         pa_mainloop_iterate(pa_ptrs.pa_ml,1,NULL);
         
