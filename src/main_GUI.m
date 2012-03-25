@@ -87,7 +87,7 @@ function main_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
     % closeFcn)
     handles.audioObj = [];
 
-    % Bör lyftas ut någonstans...
+    % Should probably be placed elsewhere
     handles.audioObj = CustomAudioRecorder(fs,16,1);
     set(handles.audioObj,'TimerPeriod', dT);
     %%%%%%
